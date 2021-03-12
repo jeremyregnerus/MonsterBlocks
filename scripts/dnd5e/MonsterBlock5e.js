@@ -1124,7 +1124,6 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			"current-hit-points": game.settings.get("monsterblock", "current-hit-points"),
 			"maximum-hit-points": game.settings.get("monsterblock", "maximum-hit-points"),
 			"hide-profile-image": game.settings.get("monsterblock", "hide-profile-image"),
-			"zoom-profile-image": game.settings.get("monsterblock", "zoom-profile-image"),
 			"show-lair-actions": game.settings.get("monsterblock", "show-lair-actions"),
 			"theme-choice": game.settings.get("monsterblock", "default-theme"),
 			"custom-theme-class": game.settings.get("monsterblock", "custom-theme-class"),

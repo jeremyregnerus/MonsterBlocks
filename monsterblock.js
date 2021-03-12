@@ -57,14 +57,6 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: false
 	});
-	game.settings.register("monsterblock", "zoom-profile-image", {
-		name: game.i18n.localize("MOBLOKS5E.zoom-profile-image-name"),
-		hint: game.i18n.localize("MOBLOKS5E.zoom-profile-image-hint"),
-		scope: "world",
-		config: true,
-		type: Boolean,
-		default: true
-	});
 	game.settings.register("monsterblock", "show-lair-actions", {
 		name: game.i18n.localize("MOBLOKS5E.show-lair-actions-name"),
 		hint: game.i18n.localize("MOBLOKS5E.show-lair-actions-hint"),

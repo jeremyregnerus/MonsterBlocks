@@ -12,74 +12,20 @@
 			on="MOBLOKS5E.DisableEdit" 
 			off="MOBLOKS5E.EnableEdit"
 		}}
-		{{#if flags.editing}}
-			{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs" 
-				flag=flags.show-delete
-				control="show-delete" 
-				on="MOBLOKS5E.DisableDelete" 
-				off="MOBLOKS5E.EnableDelete"
-			}}
-		{{/if}}
-		{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
-			flag=flags.show-resources
-			control="show-resources"
-			on="MOBLOKS5E.HideResources"
-			off="MOBLOKS5E.ShowResources"
+		{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs" 
+			flag=flags.show-delete
+			control="show-delete" 
+			on="MOBLOKS5E.DisableDelete" 
+			off="MOBLOKS5E.EnableDelete"
 		}}
 		{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
-			flag=flags.show-skill-save
-			control="show-skill-save"
-			on="MOBLOKS5E.HideSkillSave"
-			off="MOBLOKS5E.ShowSkillSave"
-		}}
-		{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
-			flag=flags.show-not-prof
-			control="show-not-prof"
-			on="MOBLOKS5E.HideNotProf"
-			off="MOBLOKS5E.ShowNotProf"
+			flag=flags.show-bio
+			control="show-bio"
+			on="MOBLOKS5E.HideBio"
+			off="MOBLOKS5E.ShowBio"
 		}}
 		<li>
-			<a class="switch" data-control="attack-descriptions">
-				{{ localize "MOBLOKS5E.AttackDescriptions" }}
-			</a>
-			<ul>
-				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
-					flag=flags.attack-descriptions
-					control="attack-descriptions"
-					on="MOBLOKS5E.HideGenerated"
-					off="MOBLOKS5E.ShowGenerated"
-				}}
-			</ul>
-		</li>
-		{{#if info.hasCastingFeature}}
-		<li>
-			<a class="switch" data-control="casting-feature">{{ localize "DND5E.Spellcasting" }}</a>
-			<ul>
-				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
-					flag=flags.casting-feature
-					control="casting-feature"
-					on="MOBLOKS5E.HideGenerated"
-					off="MOBLOKS5E.ShowGenerated"
-				}}
-			</ul>
-		</li>
-		{{/if}}
-		<li>
-			<a>{{ localize "MOBLOKS5E.DescriptionS" }}</a>
-			<ul>
-				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
-					flag=flags.inline-secrets
-					control="inline-secrets"
-					on="MOBLOKS5E.DisableInlSecr"
-					off="MOBLOKS5E.EnableInlSecr"
-				}}				
-				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
-					flag=flags.hidden-secrets
-					control="hidden-secrets"
-					on="MOBLOKS5E.ShowSecrets"
-					off="MOBLOKS5E.HideSecrets"
-				}}				
-			</ul>
+			<a class="trigger" data-control="resetDefaults">{{ localize "MOBLOKS5E.resetDefaults.label" }}</a>
 		</li>
 		<li>
 			<a>{{ localize "DND5E.HitPoints" }}</a>
@@ -99,47 +45,76 @@
 			</ul>
 		</li>
 		<li>
-			<a>{{ localize "MOBLOKS5E.ProfileImage" }}</a>
+			<a>{{ localize "MOBLOKS5E.DescriptionS" }}</a>
+			<ul>
+				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
+					flag=flags.attack-descriptions
+					control="attack-descriptions"
+					on="Hide generated attacks"
+					off="Show generated attacks"
+				}}
+				{{#if info.hasCastingFeature}}
+					{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
+						flag=flags.casting-feature
+						control="casting-feature"
+						on="Hide generated spellcasting"
+						off="Show generated spellcasting"
+					}}
+				{{/if}}
+				{{#if info.hasLair}}
+					{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
+						flag=flags.show-lair-actions
+						control="show-lair-actions"
+						on="MOBLOKS5E.HideLair"
+						off="MOBLOKS5E.ShowLair"
+					}}
+				{{/if}}
+				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
+					flag=flags.inline-secrets
+					control="inline-secrets"
+					on="MOBLOKS5E.DisableInlSecr"
+					off="MOBLOKS5E.EnableInlSecr"
+				}}				
+				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
+					flag=flags.hidden-secrets
+					control="hidden-secrets"
+					on="MOBLOKS5E.ShowSecrets"
+					off="MOBLOKS5E.HideSecrets"
+				}}				
+			</ul>
+		</li>
+		<li>
+			<a>Resources &amp; Skills</a>
+			<ul>
+				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
+					flag=flags.show-resources
+					control="show-resources"
+					on="MOBLOKS5E.HideResources"
+					off="MOBLOKS5E.ShowResources"
+				}}
+				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
+					flag=flags.show-skill-save
+					control="show-skill-save"
+					on="MOBLOKS5E.HideSkillSave"
+					off="MOBLOKS5E.ShowSkillSave"
+				}}
+				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
+					flag=flags.show-not-prof
+					control="show-not-prof"
+					on="MOBLOKS5E.HideNotProf"
+					off="MOBLOKS5E.ShowNotProf"
+				}}
+			</ul>
+		</li>
+		<li>
+			<a>Appearance</a>
 			<ul>
 				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
 					flag=flags.hide-profile-image
 					control="hide-profile-image"
 					on="MOBLOKS5E.ShowProfileImage"
 					off="MOBLOKS5E.HideProfileImage"
-				}}		
-				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
-					flag=flags.zoom-profile-image
-					control="zoom-profile-image"
-					on="MOBLOKS5E.StaticProfileImage"
-					off="MOBLOKS5E.ZoomProfileImage"
 				}}
-			</ul>
-		</li>
-		{{#if info.hasLair}}
-		{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
-			flag=flags.show-lair-actions
-			control="show-lair-actions"
-			on="MOBLOKS5E.HideLair"
-			off="MOBLOKS5E.ShowLair"
-		}}
-		{{/if}}
-		{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
-			flag=flags.show-bio
-			control="show-bio"
-			on="MOBLOKS5E.HideBio"
-			off="MOBLOKS5E.ShowBio"
-		}}
-		{{#if info.vttatokenizer}}
-		<li>
-			<a class="trigger" data-control="openTokenizer">{{ localize "MOBLOKS5E.OpenTokenizer" }}</a>
-		</li>
-		{{/if}}
-		<li>
-			<a class="trigger" data-control="resetDefaults">{{ localize "MOBLOKS5E.resetDefaults.label" }}</a>
-		</li>
-		<li>
-			<a>{{localize "MOBLOKS5E.mini-block.label"}}</a>
-			<ul>
 				{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
 					flag=flags.compact-window
 					control="compact-window"
@@ -158,38 +133,38 @@
 					on="MOBLOKS5E.compact-feats.disable"
 					off="MOBLOKS5E.compact-feats.enable"
 				}}
+				<li>
+					<a>{{ localize "MOBLOKS5E.Theme" }}</a>
+					<ul>
+					{{#each themes as |theme id|}}
+					{{#unless (eq id "custom")}}
+						<li>
+							<a	class="trigger{{#if (eq @root.flags.theme-choice id)}} selected{{/if}}"
+								data-control="pickTheme" 
+								data-value="{{id}}">
+								{{~ localize theme.name ~}}
+							</a>
+						</li>
+					{{/unless}}
+					{{/each}}
+						<li>
+							<label class="custom-class-label{{#if (eq flags.theme-choice 'custom')}} selected{{/if}}">
+								<a	class="trigger nochild" 
+									data-control="pickTheme" 
+									data-value="custom">
+									{{~ localize "MOBLOKS5E.CustomThemeName" }}{{ localize "MOBLOKS5E.Colon" ~}}
+								</a>
+								<input type="text" class="switch-input" placeholder="class-name" value="{{flags.custom-theme-class}}">
+							</label>
+						</li>
+					</ul>
+				</li>
 				<li>		
 					<label>
 						<a class="trigger nochild" data-control="setFontSize">
 							{{~ localize "MOBLOKS5E.font-size.label" }}{{ localize "MOBLOKS5E.Colon" ~}}
 						</a>
 						<input type="text" class="switch-input" placeholder="{{localize "MOBLOKS5E.font-size.placeholder"}}" value="{{flags.font-size}}">
-					</label>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a>{{ localize "MOBLOKS5E.Theme" }}</a>
-			<ul>
-			{{#each themes as |theme id|}}
-			{{#unless (eq id "custom")}}
-				<li>
-					<a	class="trigger{{#if (eq @root.flags.theme-choice id)}} selected{{/if}}"
-						data-control="pickTheme" 
-						data-value="{{id}}">
-						{{~ localize theme.name ~}}
-					</a>
-				</li>
-			{{/unless}}
-			{{/each}}
-				<li>
-					<label class="custom-class-label{{#if (eq flags.theme-choice 'custom')}} selected{{/if}}">
-						<a	class="trigger nochild" 
-							data-control="pickTheme" 
-							data-value="custom">
-							{{~ localize "MOBLOKS5E.CustomThemeName" }}{{ localize "MOBLOKS5E.Colon" ~}}
-						</a>
-						<input type="text" class="switch-input" placeholder="class-name" value="{{flags.custom-theme-class}}">
 					</label>
 				</li>
 			</ul>

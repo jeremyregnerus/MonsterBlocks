@@ -505,12 +505,6 @@
 	border: none;
 	margin-right: 0;
 }
-.monsterblock.compact-layout .profile-image-zoom .profile-image:hover,
-.monsterblock .profile-image-zoom .profile-image:hover {
-	width: calc(var(--column-width) * 0.7);
-	height: calc(var(--column-width) * 0.7);
-	z-index: 75;
-}
 .monsterblock .attributes, .monsterblock .ability-scores {
 	list-style: none;
 	color: var(--heading-color);
