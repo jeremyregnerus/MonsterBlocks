@@ -499,7 +499,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			casting:	{ prep: this.prepCasting.bind(this), filter: this.constructor.isCasting.bind(this.constructor), label: game.i18n.localize("DND5E.Features"), items: [], dataset: {type: "feat"} },
 			reaction:	{ prep: this.prepAction.bind(this), filter: this.constructor.isReaction, label: game.i18n.localize("MOBLOKS5E.Reactions"), items: [], dataset: {type: "feat"} },
 			attacks:	{ prep: this.prepAttack.bind(this), filter: item => item.type === "weapon", label: game.i18n.localize("DND5E.AttackPl"), items: [] , dataset: {type: "weapon"} },
-			actions:	{ prep: this.prepAction.bind(this), filter: item => Boolean(item.data?.activation?.type), label: game.i18n.localize("DND5E.ActionPl"), items: [] , dataset: {type: "feat"} },
+			actions:	{ prep: this.prepAction.bind(this), filter: this.constructor.isAction, label: game.i18n.localize("DND5E.ActionPl"), items: [] , dataset: {type: "feat"} },
 			features:	{ prep: this.prepFeature.bind(this), filter: item => item.type === "feat", label: game.i18n.localize("DND5E.Features"), items: [], dataset: {type: "feat"} },
 			equipment:	{ prep: this.prepEquipment.bind(this), filter: () => true, label: game.i18n.localize("DND5E.Inventory"), items: [], dataset: {type: "loot"}}
 		};
@@ -997,7 +997,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		return ["rwak", "rsak"].includes(attack.data.data?.actionType);
 	}
 	isThrownAttack(attack) {
-		return attack?.data?.data?.properties.thr;
+		return attack?.data?.data?.properties?.thr;
 	}
 
 	/**
@@ -1124,6 +1124,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			"current-hit-points": game.settings.get("monsterblock", "current-hit-points"),
 			"maximum-hit-points": game.settings.get("monsterblock", "maximum-hit-points"),
 			"hide-profile-image": game.settings.get("monsterblock", "hide-profile-image"),
+			"zoom-profile-image": game.settings.get("monsterblock", "zoom-profile-image"),
 			"show-lair-actions": game.settings.get("monsterblock", "show-lair-actions"),
 			"theme-choice": game.settings.get("monsterblock", "default-theme"),
 			"custom-theme-class": game.settings.get("monsterblock", "custom-theme-class"),
@@ -1645,6 +1646,19 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 	
 	static isReaction(item) {
 		return item.data?.activation?.type === "reaction";
+	}
+
+	static isBonusAction(item) {
+		return item.data?.activation?.type === "bonus";
+	}
+
+	static isNotAction(item) {
+		return item.data?.activation?.type === "none";
+	}
+
+	static isAction(item) {
+		return item.data?.activation?.type && !MonsterBlock5e.isNotAction(item) && !MonsterBlock5e.isBonusAction(item); // calling these methods with this. does not work whereas referencing the class name does.
+		// return item.data?.activation?.type && item.data.activation.type != "none" && item.data.activation.type != "bonus";
 	}
 		
 	static isSpellcasting(item) {
