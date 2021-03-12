@@ -92,12 +92,14 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		this.templateData = data;
 		return data;
 	}
+
 	get flags() {
 		return this.preparingFlags 		// Preparing flags
 			|| this.actor.compendium    // Or compendium actor
 				?  this.defaultFlags    // Use default flags instead of legit flags.
 				:  this.actor.data.flags.monsterblock; // Otherwise normal flags
 	}
+
 	/**
 	 * Constructs a FormData object using data from the sheet,
 	 * this version gets data from `contenteditable` and other 
@@ -172,6 +174,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			)
 		);
 	}
+
 	handleSpecial(key, value) {
 		switch (key) {
 			case "data.details.cr": {
@@ -185,6 +188,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 
 		return value;
 	}
+
 	async addFeature(event) {
 		let type = event.currentTarget.dataset.type == "spell" ? "spell" : "item";
 		let item = await this._onItemCreate(event);
@@ -193,6 +197,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		if (type == "item") this.openItemEditor(event, id);
 		else this.openSpellEditor(event, id);
 	}
+
 	prepMenus() {
 		this.menuTrees = {
 			attributes: this.prepAttributeMenu(),
@@ -201,6 +206,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			saves: this.addMenu("save-roller")
 		};
 	}
+
 	/**
 	 * @param {...*} args - Array of arguments
 	 * @return {MenuTree} 
@@ -212,6 +218,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		this.menus.push(menuTree);
 		return menuTree;
 	}
+
 	/**
 	* @return {MenuTree}
 	* @memberof MonsterBlock5e
@@ -244,6 +251,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 
 		return featMenu;
 	}
+
 	createFeatureAdder(data, label) {
 		return new MenuItem("trigger", {
 			control: "addFeature",
@@ -252,6 +260,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			label: game.i18n.localize(label)
 		});
 	}
+
 	quickInsert() {
 		QuickInsert.open({
 			allowMultiple: true,
@@ -280,6 +289,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		
 		return attrMenu;
 	}
+
 	prepareSavingThrowsMenu(attrMenu) {
 		let menu = this.addMenu("saves", game.i18n.localize("MOBLOKS5E.SavingThrowS"), attrMenu);
 
@@ -298,6 +308,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 
 		return menu;
 	}
+
 	prepSkillsMenu(attrMenu) {
 		let menu = this.addMenu("skills", game.i18n.localize("MOBLOKS5E.SkillS"), attrMenu);
 
@@ -315,21 +326,25 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		this._skillMenu = menu;
 		return menu;
 	}
+
 	prepLanguageMenu(id, label, attrMenu) {
 		let menu = this.addMenu("languages", game.i18n.localize(label), attrMenu);
 		this.getTraitChecklist(id, menu, "data.traits.languages", "language-opt", CONFIG.DND5E.languages);
 		return menu;
 	}
+
 	prepDamageTypeMenu(id, label, attrMenu) {
 		let menu = this.addMenu(id, game.i18n.localize(label), attrMenu);
 		this.getTraitChecklist(id, menu, `data.traits.${id}`, "damage-type", CONFIG.DND5E.damageResistanceTypes);
 		return menu;
 	}
+
 	prepConditionTypeMenu(id, label, attrMenu) {
 		let menu = this.addMenu(id, game.i18n.localize(label), attrMenu);
 		this.getTraitChecklist(id, menu, `data.traits.${id}`, "condition-type", CONFIG.DND5E.conditionTypes);
 		return menu;
 	}
+
 	/**
 	 * Re-localizes the text for non-magical physical damage
 	 * to match the working in the books.
@@ -342,6 +357,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			if (selected.physical) selected.physical = game.i18n.localize("MOBLOKS5E.physicalDamage");
 		});
 	}
+
 	/**
 	 * This method creates MenuItems and populates the target menu for trait lists.
 	 *
@@ -378,9 +394,11 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 	hasSaveProfs() {
 		return Object.values(this.actor.data?.data?.abilities)?.some(ability => ability.proficient);
 	}
+
 	hasSkills() {
 		return Object.values(this.actor.data?.data?.skills)?.some(skill => skill.value);
 	}
+
 	isSpellcaster () {	// Regular spellcaster with typical spell slots.
 		return this.actor.data.items.some((item) => {
 			return item.data.level > 0.5 && (
@@ -389,45 +407,54 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			);
 		});
 	}
+
 	isInnateSpellcaster() {	// Innate casters have lists of spells that can be cast a certain number of times per day
 		return this.actor.data.items.some((item) => {
 			return item.data.preparation?.mode === "innate";
 		});
 	}
+
 	isWarlock() {
 		return this.actor.data.items.some((item) => {
 			return item.data.preparation?.mode === "pact";
 		});
 	}
+
 	hasAtWillSpells() {	// Some normal casters also have a few spells that they can cast "At will"
 		return this.actor.data.items.some((item) => {
 			return item.data.preparation?.mode === "atwill";
 		});
 	}
+
 	hasReactions() {
 		return this.actor.data.items.some((item) => {
 			return this.constructor.isReaction(item)
 		});
 	}
+
 	hasLair() {
 		return this.actor.data.items.some((item) => {
 			return this.constructor.isLairAction(item)
 		});
 	}
+
 	hasLegendaryActions() {
 		return this.actor.data.items.some((item) => {
 			return this.constructor.isLegendaryAction(item)
 		});
 	}
+
 	async openTokenizer() {
 		if (this.constructor.Tokenizer) {
 			new this.constructor.Tokenizer({}, this.entity).render(true);
 		}
 	}
+
 	async resetDefaults() {
 		await this.setCurrentTheme(game.settings.get("monsterblock", "default-theme"));
 		this.actor.update({"flags.monsterblock": this.defaultFlags});
 	}
+
 	static prop = "A String";
 	static themes = {
 		"default": { name: "MOBLOKS5E.DefaultThemeName", class: "default-theme" },
@@ -438,6 +465,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		"hot": { name: "MOBLOKS5E.HotThemeName", class: "hot-theme" },
 		"custom": { name: "MOBLOKS5E.CustomThemeName", class: "" }
 	}
+
 	get themes() {
 		if (this._themes) return this._themes;
 		
@@ -445,12 +473,15 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		this._themes.custom = { name: "MOBLOKS5E.CustomThemeName", class: this.actor.getFlag("monsterblock", "custom-theme-class") };
 		return this._themes;
 	}
+
 	get currentTheme() {
 		return this.flags["theme-choice"];
 	}
+
 	set currentTheme(t) {
 		this.setCurrentTheme(t);
 	}
+
 	async setCurrentTheme(theme) {
 		if (!(theme in this.themes)) return this.currentTheme;
 		let oldTheme = this.themes[this.currentTheme];
@@ -477,6 +508,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		
 		this.setCurrentTheme(value);
 	}
+
 	async setFontSize(event) {
 		const value = parseFloat(event.currentTarget.nextElementSibling.value);
 
@@ -530,19 +562,23 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		// Assign and return
 		data.features = features;
 	}
+
 	listsPassPercept(senses) {
 		return senses?.toLowerCase().indexOf(game.i18n.localize("MOBLOKS5E.PerceptionLocator")) > -1;
 	}
+
 	getPassivePerception() {
 		return game.i18n.format("MOBLOKS5E.PassivePerception", {
 			pp: this.actor.data.data.skills.prc.passive
 		});
 	}
+
 	prepAbilities(data) {
 		Object.entries(data.data?.abilities)?.forEach(
 			([id, ability]) => ability.abbr = game.i18n.localize("MOBLOKS5E.Abbr" + id)
 		)
 	}
+
 	/**
 	 * @typedef moveData 
 	 * A set of data about a movement speed 
@@ -694,11 +730,13 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			}
 		}
 	}
+
 	prepEquipment(equipData) {
 		let item = this.object.items.get(equipData._id);
 
 		this.prepResources(equipData, item);
 	}
+
 	prepAction(actionData) {
 		let action = this.object.items.get(actionData._id);
 			
@@ -713,11 +751,13 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		};
 		actionData.is.specialAction = Object.values(actionData.is).some(v => v == true);	// Used to ensure that actions that need seperated out aren't shown twice
 	}
+
 	prepFeature(featureData) {
 		let feature = this.object.items.get(featureData._id);
 
 		this.prepResources(featureData, feature)
 	}
+
 	prepAttack(attackData) {
 		let attack = this.object.items.get(attackData._id);
 		
@@ -732,11 +772,13 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 
 		console.log(attackData.continuousDescription);
 	}
+
 	castingTypes = {
 		standard: Symbol("Standard Spellcasting"),
 		innate: Symbol("Innate Spellcasting"),
 		pact: Symbol("Pact Macgic")
 	}
+
 	/**
 	 * Prepares the data for a spellcasting feature
 	 *
@@ -765,6 +807,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		
 		//console.debug(featureData);
 	}
+	
 	/**
 	 * Retuns the formatted spellbook data for the associated casting feature
 	 *
@@ -919,6 +962,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		
 		return abilityBonus + profBonus;
 	}
+
 	getCastingAbility(spellbook, type, data) {
 		let main = this.actor.data.data?.attributes?.spellcasting || "int";
 		let castingability = main;
@@ -940,6 +984,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		}
 		return [data.actor.data?.abilities[castingability]?.label ?? game.i18n.localize("DND5E.AbilityInt"), castingability];
 	}
+
 	getAttackDescription(attack) {
 		let atkd = attack.data.data;
 		let tohit = attack.labels.toHit || "0";
@@ -981,6 +1026,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			}) : []
 		}
 	}
+
 	formatAttackAndDamage(attack, i, part) {
 		return game.i18n.format("MOBLOKS5E.AttackDamageTemplate", {
 			average: this.averageDamage(attack, i),
@@ -990,12 +1036,15 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			).toLowerCase()
 		});
 	}
+
 	getAttackType(attack) {
 		return this.isThrownAttack(attack) ? game.i18n.localize("MOBLOKS5E.ThrownLabel") : CONFIG.DND5E.itemActionTypes[attack?.data?.data?.actionType] || "";
 	}
+
 	isRangedAttack(attack) {
 		return ["rwak", "rsak"].includes(attack.data.data?.actionType);
 	}
+
 	isThrownAttack(attack) {
 		return attack?.data?.data?.properties?.thr;
 	}
@@ -1017,6 +1066,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 					atkd?.damage?.parts[index][0]
 				: "0";
 	}
+
 	averageDamage(attack, index=0) {
 		return this.constructor.averageRoll(this.getAttackFormula(attack, index), attack.getRollData());
 	}
@@ -1024,20 +1074,24 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 	damageFormula(attack, index=0) {	// Extract and re-format the damage formula
 		return simplifyRollFormula(this.getAttackFormula(attack, index), attack.getRollData());
 	}
+
 	dealsDamage(item) {
 		return Boolean(item.data.data?.damage?.parts?.length);
 	}
+
 	getNumberString(number) {
 		number = Number(number);
 		if (number > 9 || number < 0) return number.toString();
 		return game.i18n.localize("MOBLOKS5E."+["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"][number]);
 	}
+
 	getMultiattack(data) { // The Multiattack action is always first in the list, so we need to find it and seperate it out.
 		for (let item of data.items) {
 			if (this.constructor.isMultiAttack(item)) return item;
 		}
 		return false;
 	}
+
 	getLegendaryResistance(data) {
 		for (let item of data.items) {
 			if (this.constructor.isLegendaryResistance(item)) return item;
@@ -1100,6 +1154,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		
 		return innateSpellbook;
 	}
+
 	async switchToDefault() {
 		const config = CONFIG[this.object.entity];
 		const type = this.object.data.type;
@@ -1114,6 +1169,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		
 		return this.actor.sheet.render(true)
 	}
+
 	get defaultFlags() {
 		return duplicate({
 			"initialized": true,
@@ -1140,6 +1196,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			"font-size": game.settings.get("monsterblock", "font-size")
 		});
 	}
+
 	async prepFlags() {
 		if (this.actor.compendium) return;
 		
@@ -1168,6 +1225,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		this.preparingFlags = false;
 		return changes;
 	}
+
 	static async getTokenizer() {
 		if (game.data.modules.find(m => m.id == "vtta-tokenizer")?.active) {
 			let Tokenizer = (await import("....//vtta-tokenizer/src/tokenizer/index.js")).default;
@@ -1177,6 +1235,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			this.Tokenizer = false;
 		}
 	}
+
 	static async getQuickInserts() {
 		if (game.data.modules.find(m => m.id == "quick-insert")?.active) {
 			let { CharacterSheetContext, dnd5eFilters } = await import("../../../quick-insert/quick-insert.js");
@@ -1186,6 +1245,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			this.CharacterSheetContext = false;
 		}
 	}
+
 	async activateListeners(html) {	// We need listeners to provide interaction.
 		this.setWindowClasses(html);
 		this.applyFontSize(html);
@@ -1425,17 +1485,20 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			else outer.removeClass(flag);
 		});
 	}
+
 	applyFontSize(html) {
 		const outer = html.parents(".monsterblock");
 		const size = this.flags["font-size"] || parseFloat(window.getComputedStyle(document.body).fontSize);
 		outer.css("font-size", `${size}px`);
 	}
+
 	selectInput(event) {
 		let el = event.currentTarget;
 		this.selectElement(el);
 		this.lastSelection.key = el.dataset.fieldKey;
 		this.lastSelection.entity = el.dataset.entity;
 	}
+
 	selectElement(el) {
 		if (!el || !el.firstChild) return;
 		let selection = window.getSelection();
@@ -1468,6 +1531,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 
 		this._onSubmit(event, { updateData: { [target]: value } })
 	}
+
 	getTogglesData(html) {
 		let data = {};
 
@@ -1494,15 +1558,18 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 
 		return data;
 	}
+
 	_onFocusEditable(event) {
 		this.lastValue = event.currentTarget.innerText;
 		this.selectInput(event);
 	}
+
 	_onUnfocusEditable(event) {
 		if (event.currentTarget.innerText == this.lastValue) return;
 		this._onChangeInput(event);
 		this.lastValue = undefined;
 	}
+
 	/**
 	 * This method is used as an event handler when an input is changed, updated, or submitted.
 	 * The input value is passed to Input Expressions for numbers, Roll for roll formulas.
@@ -1587,6 +1654,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		};
 		new TraitSelector(this.actor, options).render(true)
 	}
+
 	_onCycleSkillProficiency(event) {
 		event.preventDefault();
 		let elem = event.currentTarget;
@@ -1656,8 +1724,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 	}
 
 	static isAction(item) {
-		return item.data?.activation?.type && !MonsterBlock5e.isNotAction(item) && !MonsterBlock5e.isBonusAction(item); // calling these methods with this. does not work whereas referencing the class name does.
-		// return item.data?.activation?.type && item.data.activation.type != "none" && item.data.activation.type != "bonus";
+		return item.data?.activation?.type && !MonsterBlock5e.isNotAction(item) && !MonsterBlock5e.isBonusAction(item);
 	}
 		
 	static isSpellcasting(item) {
@@ -1677,24 +1744,30 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			s => desc.indexOf(s) > -1
 		);
 	}
+
 	static isCasting(item) {
 		return this.isSpellcasting(item) || this.isInnateSpellcasting(item);
 	}
+
 	static getItemAbility(item, actor, master) {
 		return master.object.items.get(item._id).abilityMod;
 	}
+
 	static getOrdinalSuffix(number) {
 		let suffixes = game.i18n.localize("MOBLOKS5E.OrdinalSuffixes");
 		if (number < 1 || suffixes.length < 1) return number.toString();
 		if (number <= suffixes.length) return suffixes[number - 1];
 		else return suffixes[suffixes.length - 1];
 	}
+
 	static formatOrdinal(number) {
 		return number + this.getOrdinalSuffix(number);		
 	}
+
 	static formatNumberCommas(number) {
 		return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");	// https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 	}
+
 	static averageRoll(formula, mods) {
 		if (!formula) return 0;
 		try { 
@@ -1711,6 +1784,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 			return 0;
 		}
 	}
+
 	static handlebarsHelpers = {
 		"moblok-hascontents": (obj) => { // Check if an array is empty.
 			return Object.keys(obj).length > 0;

@@ -25,6 +25,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: true
 	});
+
 	game.settings.register("monsterblock", "casting-feature", {
 		name: game.i18n.localize("MOBLOKS5E.casting-feature-name"),
 		hint: game.i18n.localize("MOBLOKS5E.casting-feature-hint"),
@@ -33,6 +34,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: true
 	});
+
 	game.settings.register("monsterblock", "inline-secrets", {
 		name: game.i18n.localize("MOBLOKS5E.inline-secrets-name"),
 		hint: game.i18n.localize("MOBLOKS5E.inline-secrets-hint"),
@@ -41,6 +43,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: false
 	});
+
 	game.settings.register("monsterblock", "hidden-secrets", {
 		name: game.i18n.localize("MOBLOKS5E.hidden-secrets-name"),
 		hint: game.i18n.localize("MOBLOKS5E.hidden-secrets-hint"),
@@ -49,6 +52,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: false
 	});
+
 	game.settings.register("monsterblock", "hide-profile-image", {
 		name: game.i18n.localize("MOBLOKS5E.hide-profile-image-name"),
 		hint: game.i18n.localize("MOBLOKS5E.hide-profile-image-hint"),
@@ -57,6 +61,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: false
 	});
+
 	game.settings.register("monsterblock", "show-lair-actions", {
 		name: game.i18n.localize("MOBLOKS5E.show-lair-actions-name"),
 		hint: game.i18n.localize("MOBLOKS5E.show-lair-actions-hint"),
@@ -65,6 +70,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: false
 	});
+
 	game.settings.register("monsterblock", "current-hit-points", {
 		name: game.i18n.localize("MOBLOKS5E.current-hit-points-name"),
 		hint: game.i18n.localize("MOBLOKS5E.current-hit-points-hint"),
@@ -73,6 +79,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: true
 	});
+
 	game.settings.register("monsterblock", "maximum-hit-points", {
 		name: game.i18n.localize("MOBLOKS5E.maximum-hit-points-name"),
 		hint: game.i18n.localize("MOBLOKS5E.maximum-hit-points-hint"),
@@ -81,6 +88,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: true
 	});
+
 	game.settings.register("monsterblock", "editing", {
 		name: game.i18n.localize("MOBLOKS5E.editing-name"),
 		hint: game.i18n.localize("MOBLOKS5E.editing-hint"),
@@ -89,6 +97,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: true
 	});
+
 	game.settings.register("monsterblock", "show-not-prof", {
 		name: game.i18n.localize("MOBLOKS5E.show-not-prof-name"),
 		hint: game.i18n.localize("MOBLOKS5E.show-not-prof-hint"),
@@ -97,6 +106,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: false
 	});
+
 	game.settings.register("monsterblock", "show-skill-save", {
 		name: game.i18n.localize("MOBLOKS5E.show-skill-save-name"),
 		hint: game.i18n.localize("MOBLOKS5E.show-skill-save-hint"),
@@ -105,6 +115,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: true
 	});
+
 	game.settings.register("monsterblock", "show-resources", {
 		name: game.i18n.localize("MOBLOKS5E.show-resources-name"),
 		hint: game.i18n.localize("MOBLOKS5E.show-resources-hint"),
@@ -113,6 +124,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: true
 	});
+
 	game.settings.register("monsterblock", "max-height-offset", {
 		name: game.i18n.localize("MOBLOKS5E.max-height-offset-name"),
 		hint: game.i18n.localize("MOBLOKS5E.max-height-offset-hint"),
@@ -129,6 +141,7 @@ Hooks.once("ready", () => {
 	
 	let themeChoices = {};
 	for (let theme in MonsterBlock5e.themes) themeChoices[theme] = game.i18n.localize(MonsterBlock5e.themes[theme].name);
+
 	game.settings.register("monsterblock", "default-theme", {
 		name: game.i18n.localize("MOBLOKS5E.default-theme-name"),
 		hint: game.i18n.localize("MOBLOKS5E.default-theme-hint"),
@@ -138,6 +151,7 @@ Hooks.once("ready", () => {
 		choices: themeChoices,
 		default: "default"
 	});
+
 	game.settings.register("monsterblock", "custom-theme-class", {
 		name: game.i18n.localize("MOBLOKS5E.custom-theme-class-name"),
 		hint: game.i18n.localize("MOBLOKS5E.custom-theme-class-hint"),
@@ -146,6 +160,7 @@ Hooks.once("ready", () => {
 		type: String,
 		default: ""
 	});
+
 	game.settings.register("monsterblock", "compact-window", {
 		name: game.i18n.localize("MOBLOKS5E.compact-window.settings.name"),
 		hint: game.i18n.localize("MOBLOKS5E.compact-window.settings.hint"),
@@ -154,6 +169,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: false
 	});
+
 	game.settings.register("monsterblock", "compact-layout", {
 		name: game.i18n.localize("MOBLOKS5E.compact-layout.settings.name"),
 		hint: game.i18n.localize("MOBLOKS5E.compact-layout.settings.hint"),
@@ -162,6 +178,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: false
 	});
+
 	game.settings.register("monsterblock", "compact-feats", {
 		name: game.i18n.localize("MOBLOKS5E.compact-feats.settings.name"),
 		hint: game.i18n.localize("MOBLOKS5E.compact-feats.settings.hint"),
@@ -170,6 +187,7 @@ Hooks.once("ready", () => {
 		type: Boolean,
 		default: false
 	});
+	
 	game.settings.register("monsterblock", "font-size", {
 		name: game.i18n.localize("MOBLOKS5E.font-size.settings.name"),
 		hint: game.i18n.localize("MOBLOKS5E.font-size.settings.hint"),

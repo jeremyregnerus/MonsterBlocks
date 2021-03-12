@@ -37,6 +37,7 @@ export default class PopupHandler {
 		this.element.css("height", h + "px");
 		this.position.height = h;
 	}
+
 	set width(w) {
 		this._width = w;
 		this.element.css("width", w);
@@ -44,11 +45,13 @@ export default class PopupHandler {
 	}
 	
 	get height() { return this._height; }
+
 	get width() { return this._width; }
+
 	get computedWidth() { return parseFloat(window.getComputedStyle(this.element[0]).width); }
+
 	get position() { return this.application.position; }
 	
-
 	/**
 	 * Returns the largest offset from the left side of the layout 
 	 * that any element's right edge has (this is the maximum width of the layout).
@@ -62,6 +65,7 @@ export default class PopupHandler {
 			return right > width ? right : width;							// If this element has a right side further from 0 than the previous record, its offset is the new record.
 		}, this.computedWidth); //391
 	}
+
 	/**
 	 * Returns the greatest offset from the top of the layout
 	 * of any element's bottom (this is the maximum height of the layout).
@@ -107,6 +111,7 @@ export default class PopupHandler {
 		const columns = parseInt(this.layoutWidth / baseWidth, 10);
 		this.width = this.getWidthCSSString(columns);
 	}
+
 	fixHeight() {
 		this.height = this.layoutHeight + this.padding;
 	}
@@ -117,12 +122,14 @@ export default class PopupHandler {
 		
 		this.position.default = false;
 	}
+
 	fixLeft() {
 		let dw = this.computedWidth - this.application.options.width;
 		let left = dw / 2;
 		this.position.left -= left;
 		this.element.css("left", this.position.left + "px");
 	}
+	
 	fixTop() {
 		let dh = this.height - this.application.options.height;
 		let top = dh / 2;

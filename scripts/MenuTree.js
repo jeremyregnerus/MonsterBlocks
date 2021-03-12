@@ -57,22 +57,27 @@ export class MenuTree extends MenuItem {
 		this._element = element ?? false;
 		this.children = children ?? [];
 	}
+
 	get element() {
 		return this.button.parent();
 	}
+
 	get button() {
 		return this.monsterblock._element.find(`[data-menu-id=${this.id}]`);
 	}
+
 	get auxElement() {
 		if (!this.auxSelect) return false;
 		return this.monsterblock._element.find(this.auxSelect);
 	}
+
 	attachHandler() {
 		this.button.click(() => {
 			if (!this.visible) this.open();
 			else this.close();
 		});
 	}
+
 	open() {
 		if (this.visible) return;
 		if (this.parent) this.parent.closeChildren();
@@ -80,6 +85,7 @@ export class MenuTree extends MenuItem {
 		if (this.auxElement) this.auxElement.addClass(this.auxClass);
 		this.visible = true;
 	}
+
 	close() {
 		if (!this.visible) return;
 		this.element.removeClass("menu-open");
@@ -87,9 +93,11 @@ export class MenuTree extends MenuItem {
 		this.visible = false;
 		this.closeChildren();
 	}
+
 	closeChildren() {
 		this.children.forEach(m => { if (m.type == "sub-menu") m.close() });
 	}
+	
 	add(item) {
 		this.children.push(item);
 	}
