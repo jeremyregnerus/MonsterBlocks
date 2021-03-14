@@ -11,14 +11,14 @@
 		{{~/if~}}
 		{{ localize "MOBLOKS5E.NameDescriptionSep" }}
 		{{#if @root.flags.attack-descriptions}}
-		<span class="generated-text">			
+		<span class="generated-text">
+			<span class="attack-type">
+				{{~item.description.attackType~}}:&nbsp;
+			</span>		
 			<span class="attack-bonus" 
-				data-roll-flavor="{{localize 'DND5E.Attack'}}: {{item.name}}" 
+				data-roll-flavor="<strong>{{item.name}} Attack</strong>" 
 				data-roll-formula="1d20 + {{item.tohit}}">
-				<span class="attack-type">
-					{{~item.description.attackType~}}
-					{{localize "MOBLOKS5E.Colon"}}
-				</span>
+				<span class="fas fa-dice-d20" style="color: #000000;">&nbsp;</span>
 				{{item.description.tohit~}}
 			</span>{{ localize "MOBLOKS5E.Comma" }}
 			<span>
@@ -34,16 +34,21 @@
 					{{#unless @first}}
 						{{ localize "MOBLOKS5E.MultiDamageAttackConjunctionPlus" }}						
 					{{/unless}}
-					{{> "modules/monsterblock/templates/dnd5e/parts/damageRoll.hbs" text=part.text name=../item.name formula=part.formula}}
+					{{> "modules/monsterblock/templates/dnd5e/parts/damageRoll.hbs"
+						name=../item.name
+						average=part.average
+						formula=part.formula
+						type=part.type
+						text=part.text}}
 					{{ localize "MOBLOKS5E.damage" }}
 					{{~#if (and @first ../item.description.versatile)~}}
 						{{ localize "MOBLOKS5E.Comma" }}
-						{{> "modules/monsterblock/templates/dnd5e/parts/damageRoll.hbs" 
-							name=../item.name 
+						{{> "modules/monsterblock/templates/dnd5e/parts/damageRoll.hbs"
+							name=../item.name
+							average=../item.description.versatile.average
 							formula=../item.description.versatile.formula
-							text=(	localize "MOBLOKS5E.AttackVersatile"
-									damage=../item.description.versatile.text
-							)
+							versatile=true
+							text=( localize "MOBLOCKS5E.AttackVersatile" damage=../item.description.versatile.text)
 						}}
 						{{~#unless @last}}{{ localize "MOBLOKS5E.Comma" }} {{/unless~}}
 					{{~/if~}}
