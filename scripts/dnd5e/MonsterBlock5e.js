@@ -50,8 +50,6 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 	getData() {	// Override and add to the getData() function
 		const data = super.getData();
 		
-		//console.debug(data);
-
 		data.notOwner = !data.owner;
 		data.limited = this.actor.limited;
 
@@ -767,10 +765,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		
 		attackData.description = this.getAttackDescription(attack);
 
-		attackData.continuousDescription = 
-			this.constructor.isContinuousDescription(attackData.data.description.value);
-
-		console.log(attackData.continuousDescription);
+		attackData.continuousDescription = this.constructor.isContinuousDescription(attackData.data.description.value);
 	}
 
 	castingTypes = {
@@ -803,9 +798,6 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		let tohit = this.getSpellAttackBonus(castingAbility);
 		
 		featureData.description = this.getCastingFeatureDescription(ct, cts, castingAbility, abilityTitle, tohit, featureData, data)
-
-		
-		//console.debug(featureData);
 	}
 	
 	/**

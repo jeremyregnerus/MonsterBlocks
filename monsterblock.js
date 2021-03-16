@@ -201,7 +201,6 @@ Hooks.once("ready", () => {
 // This is how the box sizing is corrected to fit the statblock
 // eslint-disable-next-line no-unused-vars
 Hooks.on("renderMonsterBlock5e", (monsterblock, html, data) => {	// When the sheet is rendered
-	//console.debug(`Monster Block |`, monsterblock, html, data);
 	if (html.parent().hasClass("grid-cell-content")) return;
 
 	let popup = new PopupHandler(
@@ -219,7 +218,6 @@ Hooks.on("renderMonsterBlock5e", (monsterblock, html, data) => {	// When the she
 Hooks.on("renderActorSheet5eNPC", (sheet) => {
 	if (sheet.constructor.name != "ActorSheet5eNPC") return;
 
-	//console.debug("Adding Control...");
 	let nav = document.createElement("nav");
 	nav.innerHTML = `
 		<i class="fas fa-cog"></i>
@@ -252,7 +250,6 @@ Hooks.on("renderActorSheet", (...args) => {	// This is just for debugging, it pr
 	//let template = "modules/monsterblock/templates/dnd5e/monsterblock5e.hbs";
     //delete _templateCache[template];
 	window._templateCache = [];
-    //console.debug(`Monster Block | removed "${template}" from _templateCache.`);
 	console.log(args);
 });
 

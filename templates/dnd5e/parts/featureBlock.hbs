@@ -11,7 +11,7 @@
 			</span>
 			
 			{{~#if item.data.recharge.value~}}
-				<span class="name-extension"
+				<span class="name-extension" {{~#unless item.data.recharge.charged~}}style="color: red;"{{~/unless~}}
 					data-item-id="{{item._id}}"
 					data-roll-flavor="{{item.name}} ({{ localize 'MOBLOKS5E.Recharge' }} {{item.data.recharge.value}}-6): " 
 					data-roll-formula="1d6" 
@@ -19,7 +19,7 @@
 					data-roll-success="{{ localize 'DND5E.Charged' }}" 
 					data-roll-failure="{{ localize 'MOBLOKS5E.NCharged' }}"
 					data-roll-handler="setCharged">
-					({{ localize 'MOBLOKS5E.Recharge' }} {{item.data.recharge.value}}-6){{~" "~}}
+					({{#if item.data.recharge.charged }}Charged{{else}}Recharge{{/if}} {{item.data.recharge.value}}-6){{~" "~}}
 				</span>
 			{{~/if~}}
 			{{~#if (and item.is.legendary (gt item.data.activation.cost 1))~}}
