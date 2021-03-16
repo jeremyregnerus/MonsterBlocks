@@ -1025,7 +1025,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 					text: this.formatAttackAndDamage(attack, i, part),
 					average: this.averageDamage(attack, i),
 					formula: this.damageFormula(attack, i),
-					type: part[1] ? game.i18n.localize("DND5E.Damage" + part[1].replace(/./, l => l.toUpperCase())) : ""
+					type: this.getDamageType(part)
 				}
 			}) : []
 		}
@@ -1043,6 +1043,10 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 
 	getAttackType(attack) {
 		return this.isThrownAttack(attack) ? game.i18n.localize("MOBLOKS5E.ThrownLabel") : CONFIG.DND5E.itemActionTypes[attack?.data?.data?.actionType] || "";
+	}
+
+	getDamageType(damage) {
+		return damage[1] ? game.i18n.localize("DND5E.Damage" + damage[1].replace(/./, l => l.toUpperCase())) : "";
 	}
 
 	isRangedAttack(attack) {
@@ -1795,7 +1799,10 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		},
 		"moblok-enrichhtml": (str, owner, flags) => { // Formats any text to include proper inline rolls and links.
 			return TextEditor.enrichHTML(str || "", { secrets: (owner && !flags["hidden-secrets"]) });
-		}
+		},
+		"moblok-toLowerCase": (str) => { // Formats any text to lowercase.
+			return str ? str.toLowerCase() : "";
+		},
 	};
 
 	static isContinuousDescription(desc) {
