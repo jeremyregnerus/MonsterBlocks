@@ -965,6 +965,10 @@ li:nth-last-of-type(2):after {
 	display: block;
 	position: relative;
 }
+.attack-damage,
+.attack-bonus {
+	font-weight: bold;
+}
 
 /* GM Screen By Calego#0914 Compatability */
 

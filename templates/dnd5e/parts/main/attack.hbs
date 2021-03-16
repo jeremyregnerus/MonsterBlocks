@@ -13,12 +13,11 @@
 		{{#if @root.flags.attack-descriptions}}
 		<span class="generated-text">
 			<span class="attack-type">
-				{{~item.description.attackType~}}:&nbsp;
+				{{~item.description.attackType~}}:
 			</span>		
 			<span class="attack-bonus" 
-				data-roll-flavor="<strong>{{item.name}} Attack</strong>" 
+				data-roll-flavor="{{item.name}} - Attack Roll" 
 				data-roll-formula="1d20 + {{item.tohit}}">
-				<span class="fas fa-dice-d20" style="color: #000000;">&nbsp;</span>
 				{{~item.description.tohit~}}
 			</span>{{ localize "MOBLOKS5E.Comma" }}
 			<span>

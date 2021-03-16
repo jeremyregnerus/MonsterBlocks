@@ -985,8 +985,6 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		return [data.actor.data?.abilities[castingability]?.label ?? game.i18n.localize("DND5E.AbilityInt"), castingability];
 	}
 
-	static diceIcon = `<span class="fas fa-dice-d20" style="color: #000000;"> </span>`;
-
 	getAttackDescription(attack) {
 		let atkd = attack.data.data;
 		let tohit = attack.labels.toHit || "0";
@@ -1027,7 +1025,7 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 					text: this.formatAttackAndDamage(attack, i, part),
 					average: this.averageDamage(attack, i),
 					formula: this.damageFormula(attack, i),
-					type: part[1] ? game.i18n.localize("DND5E.Damage" + part[1].replace(/./, l => l.toUpperCase())).toLowerCase() : ""
+					type: part[1] ? game.i18n.localize("DND5E.Damage" + part[1].replace(/./, l => l.toUpperCase())) : ""
 				}
 			}) : []
 		}
