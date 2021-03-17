@@ -626,10 +626,6 @@ li:nth-last-of-type(2):after {
 .monsterblock .spell .name-extension {
 	font-weight: initial;
 }
-.monsterblock .legendary-actions .feature-description {
-	padding-left: 2ch;
-	text-indent: -2ch;
-}
 .monsterblock .legendary-actions .item-name,
 .monsterblock .legendary-actions .name-extension {
 	font-weight: bold;
