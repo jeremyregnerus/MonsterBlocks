@@ -8,7 +8,12 @@
 				data-field-key="data.attributes.ac.value"
 				data-dtype="Number"
 				placeholder="{{ localize 'DND5E.ArmorClass' }}"
-				contenteditable="{{flags.editing}}">{{data.attributes.ac.value}}</span>
+				contenteditable="{{flags.editing}}">{{data.attributes.ac.value}}</span> {{#if data.attributes.ac.text}}({{~/if~}}
+			<span class="attr-value"
+				data-field-key="data.attributes.ac.text"
+				data-dtype="String"
+				placeholder=""
+				contenteditable="{{flags.editing}}">{{data.attributes.ac.text}}</span>{{~#if data.attributes.ac.text}}){{~/if~}}
 		</span>
 	</li>
 
