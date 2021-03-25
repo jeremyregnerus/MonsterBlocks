@@ -26,7 +26,9 @@
 		{{/if}}
 
 	{{! Actions }}
-		<h2 class="section-header" >{{localize "DND5E.ActionPl"}}</h2>
+		{{#if info.hasActions}}
+			<h2 class="section-header" >{{localize "DND5E.ActionPl"}}</h2>
+		{{/if}}
 
 		{{! Multiattack }}
 		{{#if features.multiattack.items}}
