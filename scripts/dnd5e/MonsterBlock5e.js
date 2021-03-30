@@ -1796,6 +1796,9 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		"moblok-toLowerCase": (str) => { // Formats any text to lowercase.
 			return str ? str.toLowerCase() : "";
 		},
+		"moblok-isEquipment": (item) => {
+			return item.type === "loot" || item.type === "equipment" || item.type === "consumable";
+		}
 	};
 
 	static isContinuousDescription(desc) {
