@@ -735,9 +735,6 @@ li:nth-last-of-type(2):after {
 .monsterblock .editor {
 	height: 100%;
 }
-.monsterblock .bio-box h2 {
-	margin-top: 2.5em;
-}
 .monsterblock .biography {
 	margin-top: 2em;
 	--min-height: 30em;
