@@ -31,7 +31,8 @@
 				{{~#if item.hasresource~}}
 					{{> "modules/monsterblock/templates/dnd5e/parts/resource.hbs" resource=item.resource}}
 				{{~/if~}}
-			{{~/unless~}}{{ localize "MOBLOKS5E.NameDescriptionSep" }}
+			{{~/unless~}}
+			{{~#unless (moblok-isAsterisk item.name)~}}{{ localize "MOBLOKS5E.NameDescriptionSep" }}{{~/unless}}
 		{{~else~}}
 			<span class="item-name" data-item-id="{{item._id}}"></span>
 		{{~/unless}}

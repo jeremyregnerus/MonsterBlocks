@@ -1798,6 +1798,9 @@ export default class MonsterBlock5e extends ActorSheet5eNPC {
 		},
 		"moblok-isEquipment": (item) => {
 			return item.type === "loot" || item.type === "equipment" || item.type === "consumable" || item.type === "backpack";
+		},
+		"moblok-isAsterisk": (str) => {
+			return str === "*";
 		}
 	};
 
