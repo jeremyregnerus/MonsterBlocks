@@ -12,12 +12,14 @@
 			on="MOBLOKS5E.DisableEdit" 
 			off="MOBLOKS5E.EnableEdit"
 		}}
-		{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs" 
-			flag=flags.show-delete
-			control="show-delete" 
-			on="MOBLOKS5E.DisableDelete" 
-			off="MOBLOKS5E.EnableDelete"
-		}}
+		{{#if flags.editing}}
+			{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs" 
+				flag=flags.show-delete
+				control="show-delete" 
+				on="MOBLOKS5E.DisableDelete" 
+				off="MOBLOKS5E.EnableDelete"
+			}}
+		{{/if}}
 		{{> "modules/monsterblock/templates/dnd5e/parts/switch.hbs"
 			flag=flags.show-bio
 			control="show-bio"

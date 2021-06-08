@@ -598,6 +598,7 @@ li:nth-last-of-type(2):after {
 }
 .monsterblock .spell-name {
 	font-style: italic;
+	font-weight: bold;
 }
 .monsterblock .monster-saves .ability {
 	display: inline;
